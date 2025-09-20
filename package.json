@@ -1,0 +1,10 @@
+{
+  "name": "ip-api",
+  "version": "1.0.0",
+  "author": "y-nabeelxd",
+  "type": "module",
+  "scripts": {
+    "dev": "vercel dev",
+    "start": "node index.js"
+  }
+}

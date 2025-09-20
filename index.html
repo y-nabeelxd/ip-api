@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IP Info API</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 2rem;
+            width: 100%;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(to right, #a8ff78, #78ffd6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto 1.5rem;
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 2rem;
+            width: 100%;
+            max-width: 800px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            margin-bottom: 2rem;
+        }
+        
+        h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #78ffd6;
+        }
+        
+        h3 {
+            font-size: 1.4rem;
+            margin: 1.5rem 0 0.5rem;
+            color: #a8ff78;
+        }
+        
+        pre {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+        }
+        
+        code {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .endpoint {
+            display: flex;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+            word-break: break-all;
+        }
+        
+        .method {
+            background: #78ffd6;
+            color: #0f2027;
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px;
+            font-weight: bold;
+            margin-right: 1rem;
+        }
+        
+        .test-area {
+            margin-top: 2rem;
+        }
+        
+        .input-group {
+            display: flex;
+            margin: 1rem 0;
+        }
+        
+        input {
+            flex: 1;
+            padding: 0.8rem 1rem;
+            border: none;
+            border-radius: 4px 0 0 4px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #0f2027;
+            font-size: 1rem;
+        }
+        
+        button {
+            background: #78ffd6;
+            color: #0f2027;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+        
+        button:hover {
+            background: #a8ff78;
+        }
+        
+        .response {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            max-height: 300px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+        }
+        
+        .loader {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: #78ffd6;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 10px;
+            display: none;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        footer {
+            margin-top: 2rem;
+            text-align: center;
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .card {
+                padding: 1.5rem;
+            }
+            
+            .input-group {
+                flex-direction: column;
+            }
+            
+            input, button {
+                width: 100%;
+                border-radius: 4px;
+                margin-bottom: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>IP Info API</h1>
+        <p class="subtitle">A lightweight, self-hosted API for retrieving IP geolocation information</p>
+    </header>
+    
+    <div class="card">
+        <h2>API Endpoint</h2>
+        <div class="endpoint">
+            <span class="method">GET</span>
+            <span>https://https://your.project.vercel.appvercel.app/api/ipinfo?key=YOUR_API_KEY</span>
+        </div>
+        
+        <h3>Response Format</h3>
+        <pre>{
+  "ip": "8.8.8.8",
+  "city": "Mountain View",
+  "country_code": "US",
+  "country_name": "United States",
+  "region_code": "CA",
+  "region": "California"
+}</pre>
+        
+        <h3>How to Use</h3>
+        <p>Include your API key as a query parameter:</p>
+        <pre>fetch('https://https://your.project.vercel.appvercel.app/api/ipinfo?key=YOUR_API_KEY')
+  .then(response => response.json())
+  .then(data => console.log(data));</pre>
+    </div>
+    
+    <div class="card">
+        <h2>Test the API</h2>
+        <div class="test-area">
+            <div class="input-group">
+                <input type="text" id="apiKey" placeholder="Enter your API key">
+                <button onclick="testApi()">Test API</button>
+            </div>
+            <div id="result">
+                <div class="loader" id="loader"></div>
+                <div class="response" id="response">Response will appear here...</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="card">
+        <h2>Features</h2>
+        <ul>
+            <li>Lightweight and fast</li>
+            <li>No rate limits</li>
+            <li>Returns only essential information</li>
+            <li>Easy to integrate</li>
+            <li>Self-hosted solution</li>
+        </ul>
+        
+        <h3>Response Fields</h3>
+        <ul>
+            <li><code>ip</code> - The IP address of the client</li>
+            <li><code>city</code> - Detected city name</li>
+            <li><code>country_code</code> - Two-letter country code (ISO 3166-1 alpha-2)</li>
+            <li><code>country_name</code> - Full country name</li>
+            <li><code>region_code</code> - Region/state code</li>
+            <li><code>region</code> - Full region/state name</li>
+        </ul>
+    </div>
+    
+    <footer>
+        <p>IP Info API &copy; 2025 | By Nabeel XD</p>
+    </footer>
+
+    <script>
+        async function testApi() {
+            const apiKey = document.getElementById('apiKey').value;
+            const responseElement = document.getElementById('response');
+            const loader = document.getElementById('loader');
+            
+            if (!apiKey) {
+                responseElement.textContent = 'Please enter your API key';
+                return;
+            }
+            
+            loader.style.display = 'inline-block';
+            responseElement.textContent = 'Testing...';
+            
+            try {
+                const response = await fetch(`https://https://your.project.vercel.appvercel.app/api/ipinfo?key=${apiKey}`);
+                const data = await response.json();
+                
+                responseElement.textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                responseElement.textContent = `Error: ${error.message}`;
+            } finally {
+                loader.style.display = 'none';
+            }
+        }
+        
+        document.getElementById('apiKey').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                testApi();
+            }
+        });
+    </script>
+</body>
+</html>
